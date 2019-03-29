@@ -151,6 +151,16 @@ public interface WxOpenMaService extends WxMaService {
   String API_CHANGE_VISITSTATUS = "https://api.weixin.qq.com/wxa/change_visitstatus";
 
   /**
+   * 设置小程序隐私设置（是否可被搜索）
+   */
+  String API_CHANGE_SEARCH_STATUS = "https://api.weixin.qq.com/wxa/changewxasearchstatus";
+
+  /**
+   * 查询小程序当前隐私设置（是否可被搜索）
+   */
+  String API_GET_SEARCH_STATUS = "https://api.weixin.qq.com/wxa/getwxasearchstatus";
+
+  /**
    * 11.小程序版本回退（仅供第三方代小程序调用）
    */
   String API_REVERT_CODE_RELEASE = "https://api.weixin.qq.com/wxa/revertcoderelease";
@@ -283,6 +293,20 @@ public interface WxOpenMaService extends WxMaService {
   WxOpenResult modifyAccountSignature(String signature) throws WxErrorException;
 
   /**
+   * 设置小程序隐私设置（是否可被搜索）
+   * @param status    1表示不可搜索，0表示可搜索
+   * @return
+   */
+  WxOpenResult changeSearchStatus(Integer status) throws WxErrorException;
+
+  /**
+   * 查询小程序当前隐私设置（是否可被搜索）
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenMaSearchStatusResult  getSearchStatus() throws WxErrorException;
+
+  /**
    * 绑定小程序体验者
    *
    * @param wechatid 体验者微信号（不是openid）
@@ -381,6 +405,15 @@ public interface WxOpenMaService extends WxMaService {
    * @throws WxErrorException
    */
   WxOpenResult releaseAudited() throws WxErrorException;
+
+  /**
+   * 修改小程序线上代码的可见状态（仅供第三方代小程序调用）
+   *
+   * @param isVisitable 是否可见
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenResult  changeVisitStatus(boolean isVisitable) throws WxErrorException;
 
   /**
    * 11. 小程序版本回退（仅供第三方代小程序调用）

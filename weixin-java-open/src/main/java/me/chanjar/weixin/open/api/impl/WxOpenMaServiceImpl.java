@@ -227,6 +227,34 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
   }
 
   /**
+   * 设置小程序隐私设置（是否可被搜索）
+   *
+   * @param status 1表示不可搜索，0表示可搜索
+   * @return
+   */
+  @Override
+  public WxOpenResult changeSearchStatus(Integer status) throws WxErrorException {
+    JsonObject requestJson = new JsonObject();
+    requestJson.addProperty("status", status);
+
+    String response = post(API_CHANGE_SEARCH_STATUS, GSON.toJson(requestJson));
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
+  }
+
+  /**
+   * 查询小程序当前隐私设置（是否可被搜索）
+   *
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenMaSearchStatusResult getSearchStatus() throws WxErrorException {
+    String response = get(API_GET_SEARCH_STATUS, "");
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaSearchStatusResult.class);
+  }
+
+  /**
    * 绑定小程序体验者
    *
    * @param wechatid 体验者微信号（不是openid）
@@ -385,6 +413,21 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
   public WxOpenResult releaseAudited() throws WxErrorException {
     JsonObject params = new JsonObject();
     String response = post(API_RELEASE, GSON.toJson(params));
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
+  }
+
+  /**
+   * 10. 修改小程序线上代码的可见状态（仅供第三方代小程序调用）
+   *
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenResult changeVisitStatus(boolean isVisitable) throws WxErrorException {
+    JsonObject params = new JsonObject();
+    params.addProperty("action", (isVisitable ? "open" : "close"));
+
+    String response = post(API_CHANGE_VISITSTATUS, GSON.toJson(params));
     return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }
 
