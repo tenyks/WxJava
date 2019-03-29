@@ -6,9 +6,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.open.bean.WxOpenMaCodeTemplate;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerOptionResult;
-import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
+import me.chanjar.weixin.open.bean.result.*;
 
 import java.util.List;
 
@@ -23,6 +21,11 @@ public interface WxOpenComponentService {
   String API_GET_AUTHORIZER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info";
   String API_GET_AUTHORIZER_OPTION_URL = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option";
   String API_SET_AUTHORIZER_OPTION_URL = "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option";
+
+  /**
+   * 创建小程序接口
+   */
+  String API_FAST_REGISTER_WEAPP = "https://api.weixin.qq.com/cgi-bin/component/fastregisterweapp?action=create";
 
   String COMPONENT_LOGIN_PAGE_URL = "https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=%s&pre_auth_code=%s&redirect_uri=%s";
   /**
@@ -168,4 +171,19 @@ public interface WxOpenComponentService {
    * @see #getTemplateList
    */
   void deleteTemplate(long templateId) throws WxErrorException;
+
+  /**
+   * 创建小程序接口；
+   * @param name                企业名，（必要）；
+   * @param code                企业代码，（必要）；
+   * @param codeType            企业代码类型（1：统一社会信用代码， 2：组织机构代码，3：营业执照注册号），（必要）；
+   * @param legalPersonaWechat  法人微信，（必要）；
+   * @param legalPersonaName    法人姓名，（必要）；
+   * @param componentPhone      第三方联系电话，（必要）；
+   * @return  提交请求是否成功；
+   */
+  WxOpenFastRegisterResult fastRegisterWeapp(String name, String code, Integer codeType,
+                                             String legalPersonaWechat,
+                                             String legalPersonaName,
+                                             String componentPhone) throws WxErrorException;
 }

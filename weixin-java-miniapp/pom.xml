@@ -7,11 +7,12 @@
   <parent>
     <groupId>com.github.binarywang</groupId>
     <artifactId>wx-java</artifactId>
-    <version>3.3.0</version>
+    <version>3.3.1-SNAPSHOT</version>
   </parent>
   <artifactId>weixin-java-miniapp</artifactId>
   <name>WxJava - MiniApp</name>
   <description>微信小程序Java SDK</description>
+  <version>3.3.1-SNAPSHOT</version>
 
   <dependencies>
     <dependency>

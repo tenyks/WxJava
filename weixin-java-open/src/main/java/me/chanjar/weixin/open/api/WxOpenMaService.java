@@ -54,10 +54,38 @@ public interface WxOpenMaService extends WxMaService {
   String API_GET_ACCOUNT_BASICINFO = "https://api.weixin.qq.com/cgi-bin/account/getaccountbasicinfo";
 
   /**
+   * 小程序名称设置及改名
+   * <pre>
+   * POST请求
+   * 注意：请使用 https 协议
+   * </pre>
+   */
+  String API_SET_NICK_NAME = "https://api.weixin.qq.com/wxa/setnickname";
+
+  /**
+   * 小程序改名审核状态查询
+   */
+  String API_QUERY_NICK_NAME_AUDIT = "https://api.weixin.qq.com/wxa/api_wxa_querynickname";
+
+  /**
+   * 微信认证名称检测
+   */
+  String API_CHECK_VERIFY_NICK_NAME = "https://api.weixin.qq.com/cgi-bin/wxverify/checkwxverifynickname";
+
+  /**
+   * 修改头像
+   */
+  String API_MODIFY_HEAD_IMAGE = "https://api.weixin.qq.com/cgi-bin/account/modifyheadimage";
+
+  /**
+   * 修改功能介绍
+   */
+  String API_MODIFY_SIGNATURE = "https://api.weixin.qq.com/cgi-bin/account/modifysignature";
+
+  /**
    * 绑定微信用户为小程序体验者
    */
   String API_BIND_TESTER = "https://api.weixin.qq.com/wxa/bind_tester";
-
 
   /**
    * 解除绑定微信用户为小程序体验者
@@ -210,7 +238,49 @@ public interface WxOpenMaService extends WxMaService {
    * @return
    * @throws WxErrorException
    */
-  String getAccountBasicInfo() throws WxErrorException;
+  WxOpenMaAccountBaseInfoResult getAccountBasicInfo() throws WxErrorException;
+
+  /**
+   * 小程序名称设置及改名
+   * @param form      改名参数，（必要）；
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenMaAccountSetNickNameResult setAccountNickName(WxOpenMaAccountSetNickNameForm form) throws WxErrorException;
+
+  /**
+   * 小程序改名审核状态查询；
+   * @param auditId
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenMaAccountNickNameAuditResult getAccountNickNameAudit(Long auditId) throws WxErrorException;
+
+  /**
+   * 微信认证名称检测
+   * @param nickName
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenMaCheckNickNameResult checkAccountNickName(String nickName) throws WxErrorException;
+
+  /**
+   * 修改头像
+   * @param mediaId     头像素材media_id，（必要）；
+   * @param x1          裁剪框左上角x坐标（取值范围：[0, 1]），（必要）；
+   * @param y1          裁剪框左上角y坐标（取值范围：[0, 1]），（必要）；
+   * @param x2          裁剪框右下角x坐标（取值范围：[0, 1]），（必要）；
+   * @param y2          裁剪框右下角y坐标（取值范围：[0, 1]），（必要）；
+   * @return
+   */
+  WxOpenResult  modifyAccountHeadImage(String mediaId, Float x1, Float y1, Float x2, Float y2) throws WxErrorException;
+
+  /**
+   * 修改功能介绍
+   * @param signature   功能介绍（简介），（必要）；
+   * @return
+   */
+  WxOpenResult modifyAccountSignature(String signature) throws WxErrorException;
 
   /**
    * 绑定小程序体验者
@@ -310,7 +380,7 @@ public interface WxOpenMaService extends WxMaService {
    * @return
    * @throws WxErrorException
    */
-  WxOpenResult releaesAudited() throws WxErrorException;
+  WxOpenResult releaseAudited() throws WxErrorException;
 
   /**
    * 11. 小程序版本回退（仅供第三方代小程序调用）
@@ -318,7 +388,7 @@ public interface WxOpenMaService extends WxMaService {
    * @return
    * @throws WxErrorException
    */
-  WxOpenResult revertCodeReleaes() throws WxErrorException;
+  WxOpenResult revertCodeRelease() throws WxErrorException;
 
   /**
    * 15. 小程序审核撤回

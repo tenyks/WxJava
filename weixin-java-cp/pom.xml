@@ -7,12 +7,13 @@
   <parent>
     <groupId>com.github.binarywang</groupId>
     <artifactId>wx-java</artifactId>
-    <version>3.3.0</version>
+    <version>3.3.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>weixin-java-cp</artifactId>
   <name>WxJava - CP</name>
   <description>微信企业号/企业微信 Java SDK</description>
+  <version>3.3.1-SNAPSHOT</version>
 
   <dependencies>
     <dependency>

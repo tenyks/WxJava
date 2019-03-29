@@ -20,9 +20,7 @@ import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
 import me.chanjar.weixin.open.bean.WxOpenMaCodeTemplate;
 import me.chanjar.weixin.open.bean.auth.WxOpenAuthorizationInfo;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerOptionResult;
-import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
+import me.chanjar.weixin.open.bean.result.*;
 import me.chanjar.weixin.open.util.json.WxOpenGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -386,5 +384,23 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     JsonObject param = new JsonObject();
     param.addProperty("template_id", templateId);
     post(DELETE_TEMPLATE_URL, param.toString(), "access_token");
+  }
+
+  @Override
+  public WxOpenFastRegisterResult fastRegisterWeapp(String name, String code, Integer codeType,
+                                                    String legalPersonaWechat,
+                                                    String legalPersonaName, String componentPhone) throws WxErrorException {
+    JsonObject param = new JsonObject();
+    param.addProperty("name", name);
+    param.addProperty("code", code);
+    param.addProperty("code_type", codeType);
+    param.addProperty("legal_persona_wechat", legalPersonaWechat);
+    param.addProperty("legal_persona_name", legalPersonaName);
+    param.addProperty("component_phone", componentPhone);
+
+
+    String responseJson = post(API_FAST_REGISTER_WEAPP, param.toString(), "component_access_token");
+
+    return WxOpenFastRegisterResult.fromJson(responseJson);
   }
 }

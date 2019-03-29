@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class WxConsts {
   /**
-   * 微信推送过来的消息的类型，和发送给微信xml格式消息的消息类型.
+   * 微信推送过来的消息的类型，和发送给微信xml格式消息的消息类型。
    */
   public static class XmlMsgType {
     public static final String TEXT = "text";

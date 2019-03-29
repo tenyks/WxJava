@@ -14,6 +14,7 @@ import me.chanjar.weixin.open.bean.ma.WxMaQrcodeParam;
 import me.chanjar.weixin.open.bean.message.WxOpenMaSubmitAuditMessage;
 import me.chanjar.weixin.open.bean.result.*;
 import me.chanjar.weixin.open.util.requestexecuter.ma.MaQrCodeRequestExecutor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
@@ -133,9 +134,96 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
    * @throws WxErrorException
    */
   @Override
-  public String getAccountBasicInfo() throws WxErrorException {
+  public WxOpenMaAccountBaseInfoResult getAccountBasicInfo() throws WxErrorException {
     String response = get(API_GET_ACCOUNT_BASICINFO, "");
-    return response;
+    if (StringUtils.isBlank(response)) return null;
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaAccountBaseInfoResult.class);
+  }
+
+  /**
+   * 小程序名称设置及改名
+   * @param form
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenMaAccountSetNickNameResult setAccountNickName(WxOpenMaAccountSetNickNameForm form)
+                                            throws WxErrorException {
+    String response = post(API_SET_NICK_NAME, GSON.toJson(form));
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaAccountSetNickNameResult.class);
+  }
+
+  /**
+   * 小程序改名审核状态查询；
+   *
+   * @param auditId
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenMaAccountNickNameAuditResult getAccountNickNameAudit(Long auditId) throws WxErrorException {
+    String response = get(API_QUERY_NICK_NAME_AUDIT, "");
+    if (StringUtils.isBlank(response)) return null;
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaAccountNickNameAuditResult.class);
+  }
+
+  /**
+   * 微信认证名称检测
+   *
+   * @param nickName
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenMaCheckNickNameResult checkAccountNickName(String nickName) throws WxErrorException {
+    JsonObject requestJson = new JsonObject();
+    requestJson.addProperty("nick_name", nickName);
+
+    String response = post(API_SET_WEBVIEW_DOMAIN, GSON.toJson(requestJson));
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaCheckNickNameResult.class);
+  }
+
+  /**
+   * 修改头像
+   *
+   * @param mediaId 头像素材media_id，（必要）；
+   * @param x1      裁剪框左上角x坐标（取值范围：[0, 1]），（必要）；
+   * @param y1      裁剪框左上角y坐标（取值范围：[0, 1]），（必要）；
+   * @param x2      裁剪框右下角x坐标（取值范围：[0, 1]），（必要）；
+   * @param y2      裁剪框右下角y坐标（取值范围：[0, 1]），（必要）；
+   * @return
+   */
+  @Override
+  public WxOpenResult modifyAccountHeadImage(String mediaId, Float x1, Float y1, Float x2, Float y2) throws WxErrorException {
+    JsonObject requestJson = new JsonObject();
+    requestJson.addProperty("head_img_media_id", mediaId);
+    requestJson.addProperty("x1", x1);
+    requestJson.addProperty("y1", y1);
+    requestJson.addProperty("x2", x2);
+    requestJson.addProperty("y2", y2);
+
+    String response = post(API_MODIFY_HEAD_IMAGE, GSON.toJson(requestJson));
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
+  }
+
+  /**
+   * 修改功能介绍
+   *
+   * @param signature 功能介绍（简介），（必要）；
+   * @return
+   */
+  @Override
+  public WxOpenResult modifyAccountSignature(String signature) throws WxErrorException {
+    JsonObject requestJson = new JsonObject();
+    requestJson.addProperty("signature", signature);
+
+    String response = post(API_MODIFY_SIGNATURE, GSON.toJson(requestJson));
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }
 
   /**
@@ -294,7 +382,7 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
    * @throws WxErrorException
    */
   @Override
-  public WxOpenResult releaesAudited() throws WxErrorException {
+  public WxOpenResult releaseAudited() throws WxErrorException {
     JsonObject params = new JsonObject();
     String response = post(API_RELEASE, GSON.toJson(params));
     return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
@@ -307,7 +395,7 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
    * @throws WxErrorException
    */
   @Override
-  public WxOpenResult revertCodeReleaes() throws WxErrorException {
+  public WxOpenResult revertCodeRelease() throws WxErrorException {
     String response = get(API_REVERT_CODE_RELEASE, null);
     return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }

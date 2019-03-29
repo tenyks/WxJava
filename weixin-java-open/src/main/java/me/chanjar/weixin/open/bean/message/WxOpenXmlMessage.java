@@ -38,6 +38,25 @@ public class WxOpenXmlMessage implements Serializable {
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String infoType;
 
+  @XStreamAlias("status")
+//  @XStreamConverter(value = XStreamCDataConverter.class)
+  private Integer  status;
+
+  @XStreamAlias("auth_code")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String  authCode;
+
+  @XStreamAlias("appid")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String authAppId;
+
+  @XStreamAlias("msg")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String  msg;
+
+  @XStreamAlias("info")
+  private WxOpenXmlInfoMessage  info;
+
   @XStreamAlias("ComponentVerifyTicket")
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String componentVerifyTicket;
@@ -57,6 +76,8 @@ public class WxOpenXmlMessage implements Serializable {
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String preAuthCode;
 
+  private String plainText;
+
   public static String wxMpOutXmlMessageToEncryptedXml(WxMpXmlOutMessage message, WxOpenConfigStorage wxOpenConfigStorage) {
     String plainXml = message.toXml();
     WxOpenCryptUtil pc = new WxOpenCryptUtil(wxOpenConfigStorage);
@@ -66,7 +87,9 @@ public class WxOpenXmlMessage implements Serializable {
   public static WxOpenXmlMessage fromXml(String xml) {
     //修改微信变态的消息内容格式，方便解析
     xml = xml.replace("</PicList><PicList>", "");
-    return XStreamTransformer.fromXml(WxOpenXmlMessage.class, xml);
+    WxOpenXmlMessage rst = XStreamTransformer.fromXml(WxOpenXmlMessage.class, xml);
+    rst.plainText = xml;
+    return rst;
   }
 
   public static WxOpenXmlMessage fromXml(InputStream is) {
