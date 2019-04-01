@@ -447,6 +447,6 @@ public interface WxOpenMaService extends WxMaService {
    * @return
    * @throws WxErrorException
    */
-  String setSupportVersion(String version) throws WxErrorException;
+  WxOpenResult setSupportVersion(String version) throws WxErrorException;
 
 }

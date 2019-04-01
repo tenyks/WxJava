@@ -479,11 +479,12 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
    * @throws WxErrorException
    */
   @Override
-  public String setSupportVersion(String version) throws WxErrorException {
+  public WxOpenResult setSupportVersion(String version) throws WxErrorException {
     JsonObject params = new JsonObject();
     params.addProperty("version", version);
     String response = post(API_SET_WEAPP_SUPPORT_VERSION, GSON.toJson(params));
-    return response;
+
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }
 
   /**
