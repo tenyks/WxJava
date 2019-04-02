@@ -181,7 +181,7 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
     JsonObject requestJson = new JsonObject();
     requestJson.addProperty("nick_name", nickName);
 
-    String response = post(API_SET_WEBVIEW_DOMAIN, GSON.toJson(requestJson));
+    String response = post(API_CHECK_VERIFY_NICK_NAME, GSON.toJson(requestJson));
 
     return WxMaGsonBuilder.create().fromJson(response, WxOpenMaCheckNickNameResult.class);
   }
