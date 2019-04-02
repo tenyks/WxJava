@@ -14,9 +14,15 @@ import lombok.EqualsAndHashCode;
 public class WxOpenMaAccountSetNickNameResult extends WxOpenResult {
   private static final long serialVersionUID = 6542718534283801670L;
 
+  /**
+   * 结果描述；
+   */
   @SerializedName("wording")
   private String  wording;
 
+  /**
+   * 申请记录ID；
+   */
   @SerializedName("audit_id")
   private Long    auditId;
 
