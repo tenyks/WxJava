@@ -107,7 +107,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
       String responseContent = this.getWxOpenService().post(API_COMPONENT_TOKEN_URL, jsonObject.toString());
       WxOpenComponentAccessToken componentAccessToken = WxOpenComponentAccessToken.fromJson(responseContent);
-      getWxOpenConfigStorage().updateComponentAccessTokent(componentAccessToken);
+      getWxOpenConfigStorage().updateComponentAccessToken(componentAccessToken);
     }
     return this.getWxOpenConfigStorage().getComponentAccessToken();
   }
