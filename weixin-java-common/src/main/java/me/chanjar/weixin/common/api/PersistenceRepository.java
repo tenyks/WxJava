@@ -1,4 +1,4 @@
-package me.chanjar.weixin.mp.api;
+package me.chanjar.weixin.common.api;
 
 /**
  * Key-Value风格的持久化Repository；

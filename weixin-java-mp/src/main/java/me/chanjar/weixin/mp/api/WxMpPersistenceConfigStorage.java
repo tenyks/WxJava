@@ -1,5 +1,6 @@
 package me.chanjar.weixin.mp.api;
 
+import me.chanjar.weixin.common.api.PersistenceRepository;
 import me.chanjar.weixin.mp.enums.TicketType;
 
 /**
@@ -14,7 +15,7 @@ public class WxMpPersistenceConfigStorage extends WxMpInMemoryConfigStorage {
 
   private static final String AccessTokenKey = "wx:access_token";
 
-  private final PersistenceRepository<String, String>   repository;
+  private final PersistenceRepository<String, String> repository;
 
   private String  appId;
 
@@ -44,7 +45,8 @@ public class WxMpPersistenceConfigStorage extends WxMpInMemoryConfigStorage {
 
   @Override
   public boolean isAccessTokenExpired() {
-    return repository.getTtl(appId, AccessTokenKey) < 2;
+    Long ttl = repository.getTtl(appId, AccessTokenKey);
+    return  (ttl == null || ttl < 2);
   }
 
   @Override
@@ -64,7 +66,8 @@ public class WxMpPersistenceConfigStorage extends WxMpInMemoryConfigStorage {
 
   @Override
   public boolean isTicketExpired(TicketType type) {
-    return repository.getTtl(appId, getTicketKey(type)) < 2;
+    Long ttl = repository.getTtl(appId, getTicketKey(type));
+    return (ttl == null || ttl < 2);
   }
 
   @Override
