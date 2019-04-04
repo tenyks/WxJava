@@ -1,6 +1,5 @@
 package me.chanjar.weixin.mp.enums;
 
-import lombok.Getter;
 
 /**
  * <pre>
@@ -10,7 +9,6 @@ import lombok.Getter;
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
-@Getter
 public enum TicketType {
   /**
    * jsapi
@@ -31,5 +29,9 @@ public enum TicketType {
 
   TicketType(String code) {
     this.code = code;
+  }
+
+  public String getCode() {
+    return code;
   }
 }
