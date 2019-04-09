@@ -363,10 +363,7 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
     JsonArray array = GSON.toJsonTree(items, new TypeToken<List<WxOpenMaCategoryItem>>() {}.getType()).getAsJsonArray();
     req.add("categories", array);
 
-    String postData = GSON.toJson(req);
-    System.out.println("=====" + postData);
-
-    String response = post(API_ADD_CATEGORY, postData);
+    String response = post(API_ADD_CATEGORY, GSON.toJson(req));
     return WxMaGsonBuilder.create().fromJson(response, WxOpenMaCategoryListResult.class);
   }
 

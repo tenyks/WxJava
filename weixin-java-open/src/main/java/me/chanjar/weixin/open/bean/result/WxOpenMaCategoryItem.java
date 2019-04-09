@@ -26,13 +26,13 @@ public class WxOpenMaCategoryItem implements Serializable {
    * 一级类目ID，（必要）；
    */
   @SerializedName("first")
-  private Long  firstId;
+  private Long  first;
 
   /**
    * 二级类目ID，（必要）；
    */
   @SerializedName("second")
-  private Long  secondId;
+  private Long  second;
 
   /**
    * 资质名称（key字段）和资质图片（value字段），（按需填写）；
@@ -43,8 +43,8 @@ public class WxOpenMaCategoryItem implements Serializable {
     Gson GSON = new Gson();
 
     WxOpenMaCategoryItem item = new WxOpenMaCategoryItem();
-    item.firstId = 1L;
-    item.secondId = 2L;
+    item.first = 1L;
+    item.second = 2L;
 
     List<WxOpenMaCategoryItem> items = new ArrayList<>();
     items.add(item);
@@ -52,7 +52,6 @@ public class WxOpenMaCategoryItem implements Serializable {
     JsonObject req = new JsonObject();
     JsonArray array = GSON.toJsonTree(items, new TypeToken<List<WxOpenMaCategoryItem>>() {}.getType()).getAsJsonArray();
     req.add("categories", array);
-
 
     System.out.println(GSON.toJson(req));
   }
