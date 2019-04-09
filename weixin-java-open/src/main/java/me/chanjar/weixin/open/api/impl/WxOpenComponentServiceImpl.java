@@ -405,46 +405,4 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     return WxOpenFastRegisterResult.fromJson(responseJson);
   }
 
-  /**
-   * 新增临时素材；
-   * <br>
-   * <strong>
-   * 注意
-   * <li>1、临时素材media_id是可复用的。</li>
-   * <li>2、媒体文件在微信后台保存时间为3天，即3天后media_id失效。</li>
-   * <li>3、上传临时素材的格式、大小限制与公众平台官网一致。</li>
-   * </strong>
-   * <br>
-   * 文件大小限制：
-   * <li>图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式</li>
-   * <li>语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式</li>
-   * <li>视频（video）：10MB，支持MP4格式</li>
-   * <li>缩略图（thumb）：64KB，支持JPG格式</li>
-   *
-   * @param file 本地文件，（必要）；
-   * @param type 类型，（必要），图片（image），语音（voice），视频（video），缩略图（thumb）；
-   * @return 资源ID
-   */
-  @Override
-  public WxOpenUploadMediaResult uploadTmpMedia(File file, String type) {
-    return null;
-  }
-
-  /**
-   * 新增永久素材；
-   *
-   * <br>文件大小限制：
-   * <li>图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式</li>
-   * <li>语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式</li>
-   * <li>视频（video）：10MB，支持MP4格式</li>
-   * <li>缩略图（thumb）：64KB，支持JPG格式</li>
-   *
-   * @param file 本地文件，（必要）；
-   * @param type 类型，（必要），图片（image），语音（voice），视频（video），缩略图（thumb）；
-   * @return
-   */
-  @Override
-  public WxOpenUploadMediaResult uploadMedia(File file, String type) {
-    return null;
-  }
 }

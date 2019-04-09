@@ -97,7 +97,25 @@ public interface WxOpenMaService extends WxMaService {
    */
   String API_GET_TESTERLIST = "https://api.weixin.qq.com/wxa/memberauth";
 
+  /**
+   * 获取账号可以设置的所有类目
+   */
   String API_GET_ALL_CATEGORIES = "https://api.weixin.qq.com/cgi-bin/wxopen/getallcategories";
+
+  /**
+   * 添加类目
+   */
+  String API_ADD_CATEGORY = "https://api.weixin.qq.com/cgi-bin/wxopen/addcategory";
+
+  /**
+   * 删除类目
+   */
+  String API_DELETE_CATEGORY = "https://api.weixin.qq.com/cgi-bin/wxopen/deletecategory";
+
+  /**
+   * 修改类目
+   */
+  String API_MODIFY_CATEGORY = "https://api.weixin.qq.com/cgi-bin/wxopen/modifycategory";
 
   /**
    * 以下接口为三方平台代小程序实现的代码管理功能
@@ -355,19 +373,6 @@ public interface WxOpenMaService extends WxMaService {
   File getTestQrcode(String pagePath, Map<String, String> params) throws WxErrorException;
 
   /**
-   * 获取授权小程序帐号的可选类目
-   * <p>
-   * 注意：该接口可获取已设置的二级类目及用于代码审核的可选三级类目。
-   * </p>
-   *
-   * @return WxOpenMaCategoryListResult
-   * @throws WxErrorException
-   */
-  WxOpenMaCategoryListResult getCategoryList() throws WxErrorException;
-
-  WxOpenMaCategoryListResult getCategoris() throws WxErrorException;
-
-  /**
    * 获取小程序的第三方提交代码的页面配置（仅供第三方开发者代小程序调用）
    *
    * @return
@@ -452,4 +457,39 @@ public interface WxOpenMaService extends WxMaService {
    */
   WxOpenResult setSupportVersion(String version) throws WxErrorException;
 
+  /**
+   * 添加类目；
+   * @param items   需要添加的类目，（必要）；
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenResult  addCategory(List<WxOpenMaCategoryItem> items) throws WxErrorException;
+
+  /**
+   * 删除类目；
+   * @param firstId   一级类目ID，（必要）；
+   * @param secondId  二级类目ID，（必要）；
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenResult deleteCategory(Long firstId, Long secondId) throws WxErrorException;
+
+  /**
+   * 获取授权小程序帐号的可选类目
+   * <p>
+   * 注意：该接口可获取已设置的二级类目及用于代码审核的可选三级类目。
+   * </p>
+   *
+   * @return WxOpenMaCategoryListResult
+   * @throws WxErrorException
+   */
+  WxOpenMaCategoryListResult getCategoryList() throws WxErrorException;
+
+  /**
+   * 修改类目
+   * @param item
+   * @return
+   * @throws WxErrorException
+   */
+  WxOpenResult modifyCategory(WxOpenMaCategoryItem item) throws WxErrorException;
 }

@@ -6,6 +6,7 @@ import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.open.api.WxOpenComponentService;
 import me.chanjar.weixin.open.api.WxOpenMaService;
@@ -350,14 +351,51 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
   }
 
   /**
-   * 获取账号可以设置的所有类目
+   * 添加类目；
+   *
+   * @param items 需要添加的类目，（必要）；
    * @return
    * @throws WxErrorException
    */
   @Override
-  public WxOpenMaCategoryListResult getCategories() throws WxErrorException {
-    String response = get(API_GET_CATEGORY, null);
+  public WxOpenResult addCategory(List<WxOpenMaCategoryItem> items) throws WxErrorException {
+    JsonObject req = new JsonObject();
+    JsonArray array = GSON.toJsonTree(items, new TypeToken<List<WxOpenMaCategoryItem>>() {}.getType()).getAsJsonArray();
+    req.add("categories", array);
+
+    String response = post(API_ADD_CATEGORY, GSON.toJson(req));
     return WxMaGsonBuilder.create().fromJson(response, WxOpenMaCategoryListResult.class);
+  }
+
+  /**
+   * 删除类目；
+   *
+   * @param firstId  一级类目ID，（必要）；
+   * @param secondId 二级类目ID，（必要）；
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenResult deleteCategory(Long firstId, Long secondId) throws WxErrorException {
+    JsonObject req = new JsonObject();
+    req.addProperty("first", firstId);
+    req.addProperty("second", secondId);
+
+    String response = post(API_DELETE_CATEGORY, GSON.toJson(req));
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
+  }
+
+  /**
+   * 修改类目
+   *
+   * @param item
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenResult modifyCategory(WxOpenMaCategoryItem item) throws WxErrorException {
+    String response = post(API_DELETE_CATEGORY, GSON.toJson(item));
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }
 
   /**
@@ -498,6 +536,8 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
     return WxMaGsonBuilder.create().fromJson(response, WxOpenResult.class);
   }
 
+
+
   /**
    * 将字符串对象转化为GsonArray对象
    *
@@ -513,4 +553,5 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
     }
     return jsonArray;
   }
+
 }
