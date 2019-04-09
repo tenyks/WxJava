@@ -350,6 +350,17 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
   }
 
   /**
+   * 获取账号可以设置的所有类目
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public WxOpenMaCategoryListResult getCategories() throws WxErrorException {
+    String response = get(API_GET_CATEGORY, null);
+    return WxMaGsonBuilder.create().fromJson(response, WxOpenMaCategoryListResult.class);
+  }
+
+  /**
    * 获取小程序的第三方提交代码的页面配置（仅供第三方开发者代小程序调用）
    *
    * @return

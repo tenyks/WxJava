@@ -92,11 +92,12 @@ public interface WxOpenMaService extends WxMaService {
    */
   String API_UNBIND_TESTER = "https://api.weixin.qq.com/wxa/unbind_tester";
 
-
   /**
    * 获取体验者列表
    */
   String API_GET_TESTERLIST = "https://api.weixin.qq.com/wxa/memberauth";
+
+  String API_GET_ALL_CATEGORIES = "https://api.weixin.qq.com/cgi-bin/wxopen/getallcategories";
 
   /**
    * 以下接口为三方平台代小程序实现的代码管理功能
@@ -363,6 +364,8 @@ public interface WxOpenMaService extends WxMaService {
    * @throws WxErrorException
    */
   WxOpenMaCategoryListResult getCategoryList() throws WxErrorException;
+
+  WxOpenMaCategoryListResult getCategoris() throws WxErrorException;
 
   /**
    * 获取小程序的第三方提交代码的页面配置（仅供第三方开发者代小程序调用）

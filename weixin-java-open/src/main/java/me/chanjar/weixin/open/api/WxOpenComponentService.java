@@ -8,6 +8,7 @@ import me.chanjar.weixin.open.bean.WxOpenMaCodeTemplate;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
 import me.chanjar.weixin.open.bean.result.*;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public interface WxOpenComponentService {
   String OAUTH2_REFRESH_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/component/refresh_token?appid=%s&grant_type=refresh_token&refresh_token=%s&component_appid=%s";
 
   String MINIAPP_JSCODE_2_SESSION = "https://api.weixin.qq.com/sns/component/jscode2session?appid=%s&js_code=%s&grant_type=authorization_code&component_appid=%s";
+
 
   WxMpService getWxMpServiceByAppid(String appid);
 
@@ -186,4 +188,5 @@ public interface WxOpenComponentService {
                                              String legalPersonaWechat,
                                              String legalPersonaName,
                                              String componentPhone) throws WxErrorException;
+
 }
