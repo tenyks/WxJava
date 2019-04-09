@@ -1,10 +1,15 @@
 package me.chanjar.weixin.open.bean.result;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,4 +39,21 @@ public class WxOpenMaCategoryItem implements Serializable {
    */
   private List<WxOpenMaKeyValue>  certicates;
 
+  public static void main(String[] args) {
+    Gson GSON = new Gson();
+
+    WxOpenMaCategoryItem item = new WxOpenMaCategoryItem();
+    item.firstId = 1L;
+    item.secondId = 2L;
+
+    List<WxOpenMaCategoryItem> items = new ArrayList<>();
+    items.add(item);
+
+    JsonObject req = new JsonObject();
+    JsonArray array = GSON.toJsonTree(items, new TypeToken<List<WxOpenMaCategoryItem>>() {}.getType()).getAsJsonArray();
+    req.add("categories", array);
+
+
+    System.out.println(GSON.toJson(req));
+  }
 }
