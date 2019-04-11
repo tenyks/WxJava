@@ -1,26 +1,19 @@
 package com.github.binarywang.wxpay.config;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import javax.net.ssl.SSLContext;
-
+import com.github.binarywang.wxpay.exception.WxPayException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.ssl.SSLContexts;
 
-import com.github.binarywang.wxpay.exception.WxPayException;
-import lombok.Data;
+import javax.net.ssl.SSLContext;
+import java.io.*;
+import java.security.KeyStore;
 
 /**
  * 微信支付配置
  *
  * @author Binary Wang (https://github.com/binarywang)
  */
-@Data
 public class WxPayConfig {
 
   /**
@@ -158,4 +151,155 @@ public class WxPayConfig {
     }
   }
 
+  public int getHttpConnectionTimeout() {
+    return httpConnectionTimeout;
+  }
+
+  public void setHttpConnectionTimeout(int httpConnectionTimeout) {
+    this.httpConnectionTimeout = httpConnectionTimeout;
+  }
+
+  public int getHttpTimeout() {
+    return httpTimeout;
+  }
+
+  public void setHttpTimeout(int httpTimeout) {
+    this.httpTimeout = httpTimeout;
+  }
+
+  public String getAppId() {
+    return appId;
+  }
+
+  public void setAppId(String appId) {
+    this.appId = appId;
+  }
+
+  public String getSubAppId() {
+    return subAppId;
+  }
+
+  public void setSubAppId(String subAppId) {
+    this.subAppId = subAppId;
+  }
+
+  public String getMchId() {
+    return mchId;
+  }
+
+  public void setMchId(String mchId) {
+    this.mchId = mchId;
+  }
+
+  public String getMchKey() {
+    return mchKey;
+  }
+
+  public void setMchKey(String mchKey) {
+    this.mchKey = mchKey;
+  }
+
+  public String getSubMchId() {
+    return subMchId;
+  }
+
+  public void setSubMchId(String subMchId) {
+    this.subMchId = subMchId;
+  }
+
+  public String getNotifyUrl() {
+    return notifyUrl;
+  }
+
+  public void setNotifyUrl(String notifyUrl) {
+    this.notifyUrl = notifyUrl;
+  }
+
+  public String getTradeType() {
+    return tradeType;
+  }
+
+  public void setTradeType(String tradeType) {
+    this.tradeType = tradeType;
+  }
+
+  public String getSignType() {
+    return signType;
+  }
+
+  public void setSignType(String signType) {
+    this.signType = signType;
+  }
+
+  public SSLContext getSslContext() {
+    return sslContext;
+  }
+
+  public void setSslContext(SSLContext sslContext) {
+    this.sslContext = sslContext;
+  }
+
+  public String getKeyPath() {
+    return keyPath;
+  }
+
+  public void setKeyPath(String keyPath) {
+    this.keyPath = keyPath;
+  }
+
+  public byte[] getKeyContent() {
+    return keyContent;
+  }
+
+  public void setKeyContent(byte[] keyContent) {
+    this.keyContent = keyContent;
+  }
+
+  public boolean isUseSandboxEnv() {
+    return useSandboxEnv;
+  }
+
+  public void setUseSandboxEnv(boolean useSandboxEnv) {
+    this.useSandboxEnv = useSandboxEnv;
+  }
+
+  public boolean isIfSaveApiData() {
+    return ifSaveApiData;
+  }
+
+  public void setIfSaveApiData(boolean ifSaveApiData) {
+    this.ifSaveApiData = ifSaveApiData;
+  }
+
+  public String getHttpProxyHost() {
+    return httpProxyHost;
+  }
+
+  public void setHttpProxyHost(String httpProxyHost) {
+    this.httpProxyHost = httpProxyHost;
+  }
+
+  public Integer getHttpProxyPort() {
+    return httpProxyPort;
+  }
+
+  public void setHttpProxyPort(Integer httpProxyPort) {
+    this.httpProxyPort = httpProxyPort;
+  }
+
+  public String getHttpProxyUsername() {
+    return httpProxyUsername;
+  }
+
+  public void setHttpProxyUsername(String httpProxyUsername) {
+    this.httpProxyUsername = httpProxyUsername;
+  }
+
+  public String getHttpProxyPassword() {
+    return httpProxyPassword;
+  }
+
+  public void setHttpProxyPassword(String httpProxyPassword) {
+    this.httpProxyPassword = httpProxyPassword;
+  }
 }
