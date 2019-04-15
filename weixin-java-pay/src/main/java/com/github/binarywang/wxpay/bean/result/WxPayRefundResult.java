@@ -93,7 +93,7 @@ public class WxPayRefundResult extends BaseWxPayResult implements Serializable {
    * 现金退款金额.
    */
   @XStreamAlias("cash_refund_fee")
-  private String cashRefundFee;
+  private Integer cashRefundFee;
 
   /**
    * 退款代金券使用数量.

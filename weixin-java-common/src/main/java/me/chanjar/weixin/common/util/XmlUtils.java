@@ -44,6 +44,23 @@ public class XmlUtils {
     return map;
   }
 
+  public static Map<String, String> xml2Map2(String xmlString) {
+    Map<String, String> map = new HashMap<>(16);
+    try {
+      SAXReader saxReader = new SAXReader();
+      Document doc = saxReader.read(new StringReader(xmlString));
+      Element root = doc.getRootElement();
+      List<Element> elements = root.elements();
+      for (Element element : elements) {
+        map.put(element.getName(), element.getText());
+      }
+    } catch (DocumentException e) {
+      throw new RuntimeException(e);
+    }
+
+    return map;
+  }
+
   private static Object element2MapOrString(Element element) {
     Map<String, Object> result = Maps.newHashMap();
 

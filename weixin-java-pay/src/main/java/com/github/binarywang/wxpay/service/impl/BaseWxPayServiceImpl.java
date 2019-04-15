@@ -387,6 +387,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     String responseContent = this.post(url, request.toXML(), false);
     WxPayUnifiedOrderResult result = BaseWxPayResult.fromXML(responseContent, WxPayUnifiedOrderResult.class);
     result.checkResult(this, request.getSignType(), true);
+
     return result;
   }
 
